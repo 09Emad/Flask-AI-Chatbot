@@ -1,47 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--general infomraion of the webpage-->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chatbot</title>
-    <meta name="author" content="J.C. Chen">
-    <!-- <link rel="stylesheet" href="css/style.css" /> -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- <link rel="shortcut icon" href='favicon.ico' type="image/x-icon">
-    <link rel="icon" href='favicon.ico' type="image/x-icon"> -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <meta
+      name="description"
+      content="A portfolio-ready multi-model LLM and RAG assistant built with Flask, retrieval, and a polished UI."
+    />
+    <title>LLM + RAG Studio</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
-  <!--end general information-->
   <body>
-
-    <!-- <header>
-      <div class="color-block"></div>
-    </header> -->
-
-    <!--Chatbot container-->
-    <main>  
-      <div class="chatbot">
-        <div class="chat-header">
-          <h1>My LLM</h1>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">LLM + RAG Studio</p>
+          <h1>Multi-Model AI Workspace</h1>
+          <p class="subtitle">
+            Compare models, ground answers in local knowledge, and present a polished portfolio-grade AI product.
+          </p>
+          <div class="hero-actions">
+            <a href="/health" target="_blank" rel="noreferrer">Health</a>
+            <a href="/sources" target="_blank" rel="noreferrer">Sources</a>
+            <a href="/export" target="_blank" rel="noreferrer">Export</a>
+          </div>
         </div>
-        <div class="header-sub-text">
-          <p>Copyright © JC 2023 - Created by JC with <a class="purple">❤</a></p>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span>Default model</span>
+            <strong>{{ model_name }}</strong>
+          </div>
+          <div class="stat-card">
+            <span>Selected model</span>
+            <strong id="current-model-label">{{ model_name }}</strong>
+          </div>
+          <div class="stat-card">
+            <span>Knowledge docs</span>
+            <strong>{{ knowledge_document_count }}</strong>
+          </div>
+          <div class="stat-card">
+            <span>Session</span>
+            <strong id="session-badge">new</strong>
+          </div>
+          <div class="stat-card">
+            <span>Status</span>
+            <strong id="metrics-status">ready</strong>
+          </div>
         </div>
+      </section>
 
-        <div class="spacer" id="messages-container"></div>
-        
-        <form class="chat-form" id="message-form">
-          <textarea type="text" id="message-input" placeholder="Send a message..."></textarea>
-          <button type="submit">➤</button> 
-        </form>
-      </div>
+      <section class="workspace">
+        <aside class="side-panel">
+          <div class="panel-card">
+            <h2>Model Picker</h2>
+            <p>Switch between supported model families without changing the app.</p>
+            <div class="model-picker" id="model-picker"></div>
+          </div>
+
+          <div class="panel-card">
+            <h2>Prompt Templates</h2>
+            <p>Fast starters for RAG design, LLM ops, and evaluation.</p>
+            <div class="template-bar" id="template-bar"></div>
+          </div>
+
+          <div class="panel-card">
+            <h2>RAG Signals</h2>
+            <ul>
+              <li>Local knowledge base chunks</li>
+              <li>Session-aware context</li>
+              <li>Sources returned with answers</li>
+              <li>Multi-model generation support</li>
+            </ul>
+          </div>
+
+          <div class="panel-card">
+            <h2>Retrieved Sources</h2>
+            <div id="sources-list" class="sources-list"></div>
+          </div>
+
+          <div class="panel-card actions">
+            <a href="/health" target="_blank" rel="noreferrer">Health check</a>
+            <a href="/export" target="_blank" rel="noreferrer">Export session</a>
+            <button id="clear-chat" type="button">Clear chat</button>
+          </div>
+        </aside>
+
+        <section class="chatbot-card" aria-label="Chat area">
+          <div class="chat-header">
+            <div>
+              <h2>Conversation</h2>
+              <p>Ask about LLMs, RAG pipelines, embeddings, evaluations, or deployment.</p>
+            </div>
+          </div>
+
+          <div class="messages" id="messages-container"></div>
+
+          <form class="chat-form" id="message-form">
+            <label class="sr-only" for="message-input">Message</label>
+            <textarea id="message-input" placeholder="Ask about multi-model RAG, vector search, or LLM operations..." rows="1"></textarea>
+            <button type="submit">Send</button>
+          </form>
+        </section>
+      </section>
     </main>
-    <!--end chatbot container-->
 
-    <!--Javascript to call the language model-->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <!--end Javascript to call the language model-->
   </body>
 </html>

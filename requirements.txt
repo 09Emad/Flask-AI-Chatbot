@@ -3,4 +3,5 @@ Flask_Cors
 torch
 torchvision
 torchaudio
+sentencepiece
 transformers==4.*
